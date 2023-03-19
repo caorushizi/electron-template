@@ -1,0 +1,15 @@
+{
+  "name": "electron-template",
+  "version": "0.1.0",
+  "description": "electron-template",
+  "main": "index.js",
+  "scripts": {
+    "dev": "pnpm -r --parallel -F main -F renderer run dev",
+    "build": "pnpm -r --parallel -F main -F renderer run build",
+    "pack": "pnpm -F main run pack",
+    "release": "pnpm run build && pnpm -F main run release"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}
