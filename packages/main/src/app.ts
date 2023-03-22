@@ -42,7 +42,5 @@ export default class ElectronApp implements App {
     this.ipcHandler.init();
     this.updateService.init();
     await this.dataService.init();
-
-    this.userRepo.init();
   }
 }
