@@ -26,9 +26,7 @@ export default class ElectronApp implements App {
     private readonly dataService: DatabaseService,
     @inject(TYPES.UserRepository)
     private readonly userRepo: UserRepository
-  ) {
-    // empty
-  }
+  ) {}
 
   async init(): Promise<void> {
     app.on("window-all-closed", () => {

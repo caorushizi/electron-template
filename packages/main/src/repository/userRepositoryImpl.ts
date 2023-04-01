@@ -10,9 +10,7 @@ export default class UserRepositoryImpl implements UserRepository {
     private readonly dataService: DatabaseService,
     @inject(TYPES.LoggerService)
     private readonly logger: LoggerService
-  ) {
-    // empty
-  }
+  ) {}
 
   init() {
     const user = new User();

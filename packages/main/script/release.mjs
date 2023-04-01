@@ -5,16 +5,17 @@ import { existsSync } from "node:fs";
 import dotenv from "dotenv";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const mainResolve = (r) => resolve(__dirname, "..", r);
+// const mainResolve = (r) => resolve(__dirname, "..", r);
 const rootResolve = (r) => resolve(__dirname, "../../..", r);
 const Platform = builder.Platform;
 
-const env = existsSync(rootResolve(".env.development.local"))
-  ? rootResolve(".env.development.local")
-  : rootResolve(".env.development");
-dotenv.config({ path: env });
+const nodeEnv = process.env.NODE_ENV;
+console.log("当前的环境是： ", nodeEnv);
 
-console.log(process.env.APP_NAME);
+const env = existsSync(rootResolve(`.env.${nodeEnv}.local`))
+  ? rootResolve(`.env.${nodeEnv}.local`)
+  : rootResolve(`.env.${nodeEnv}`);
+dotenv.config({ path: env });
 
 // Let's get that intellisense working
 /**
@@ -75,6 +76,12 @@ const options = {
     shortcutName: "",
     include: "",
     script: "",
+  },
+  publish: {
+    provider: "github",
+    repo: "repo",
+    owner: "owner",
+    releaseType: "draft",
   },
 };
 
