@@ -36,5 +36,9 @@ export default class MainWindowServiceImpl
       this.show();
       isDev && this.webContents.openDevTools();
     });
+
+    setInterval(() => {
+      this.webContents.send("test-event", "test");
+    }, 10 * 1000);
   }
 }

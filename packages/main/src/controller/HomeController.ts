@@ -1,6 +1,6 @@
 import { db, workspace } from "helper/variables";
 import { inject, injectable } from "inversify";
-import { handle, on } from "../helper/decorator";
+import { handle } from "../helper/decorator";
 import { StoreService, LoggerService, type Controller } from "../interfaces";
 import { TYPES } from "../types";
 
@@ -11,9 +11,7 @@ export default class HomeController implements Controller {
     private readonly logger: LoggerService,
     @inject(TYPES.StoreService)
     private readonly store: StoreService
-  ) {
-    // empty
-  }
+  ) {}
 
   @handle("index")
   async index(): Promise<IndexData> {
@@ -23,10 +21,5 @@ export default class HomeController implements Controller {
       workspace: workspace,
       platform: process.platform,
     };
-  }
-
-  @on("webview-hidden")
-  webviewHidden() {
-    //  empty
   }
 }

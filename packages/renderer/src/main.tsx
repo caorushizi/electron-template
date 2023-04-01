@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import App from "./App";
 import "./index.scss";
+import AboutPage from "./nodes/AboutPage";
 import HomePage from "./nodes/HomePage";
 import store from "./store";
 
@@ -15,6 +16,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <Routes>
           <Route path="/" element={<App />}>
             <Route index element={<HomePage />} />
+            <Route path="about" element={<AboutPage />} />
             <Route path="*" element={<HomePage />} />
           </Route>
         </Routes>
