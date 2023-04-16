@@ -3,12 +3,17 @@ import { inject, injectable } from "inversify";
 import {
   DatabaseService,
   IpcHandlerService,
+  LoggerService,
   MainWindowService,
   ProtocolService,
   UpdateService,
-  UserRepository,
   type App,
 } from "./interfaces";
+import isDev from "electron-is-dev";
+import installExtension, {
+  REDUX_DEVTOOLS,
+  REACT_DEVELOPER_TOOLS,
+} from "electron-devtools-installer";
 import { TYPES } from "./types";
 
 @injectable()
@@ -24,8 +29,8 @@ export default class ElectronApp implements App {
     private readonly ipcHandler: IpcHandlerService,
     @inject(TYPES.DatabaseService)
     private readonly dataService: DatabaseService,
-    @inject(TYPES.UserRepository)
-    private readonly userRepo: UserRepository
+    @inject(TYPES.LoggerService)
+    private readonly logger: LoggerService
   ) {}
 
   async init(): Promise<void> {
@@ -41,6 +46,13 @@ export default class ElectronApp implements App {
     this.updateService.init();
     await this.dataService.init();
 
-    this.userRepo.init();
+    if (isDev) {
+      try {
+        await installExtension([REDUX_DEVTOOLS, REACT_DEVELOPER_TOOLS]);
+        this.logger.info("devtools installed");
+      } catch (err) {
+        this.logger.error("devtools install error", err);
+      }
+    }
   }
 }
