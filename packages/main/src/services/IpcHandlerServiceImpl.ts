@@ -2,14 +2,13 @@ import { ipcMain } from "electron";
 import { injectable, multiInject } from "inversify";
 import { Controller, IpcHandlerService } from "../interfaces";
 import { TYPES } from "../types";
+import { error, success } from "helper/utils";
 
 @injectable()
 export default class IpcHandlerServiceImpl implements IpcHandlerService {
   constructor(
     @multiInject(TYPES.Controller) private readonly controllers: Controller[]
-  ) {
-    // empty
-  }
+  ) {}
 
   private registerIpc(controller: Controller, property: string | symbol): void {
     const fun = controller[property];
@@ -31,28 +30,12 @@ export default class IpcHandlerServiceImpl implements IpcHandlerService {
           if (res.then) {
             res = await res;
           }
-          return this.success(res);
+          return success(res);
         } catch (e: any) {
-          return this.error(e.message);
+          return error(-1, e.message);
         }
       });
     }
-  }
-
-  success(data: any) {
-    return {
-      code: 0,
-      message: "success",
-      data,
-    };
-  }
-
-  error(message = "fail") {
-    return {
-      code: -1,
-      message,
-      data: null,
-    };
   }
 
   private bindIpcMethods(controller: Controller): void {

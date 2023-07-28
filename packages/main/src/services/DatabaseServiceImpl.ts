@@ -12,7 +12,7 @@ export default class DatabaseServiceImpl implements DatabaseService {
     @inject(TYPES.LoggerService)
     private readonly logger: LoggerService
   ) {
-    logger.info("数据库地址是： ", db);
+    this.logger.info("数据库地址是： ", db);
     this.appDataSource = new DataSource({
       type: "better-sqlite3",
       database: db,
